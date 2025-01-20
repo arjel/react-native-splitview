@@ -1,3 +1,3 @@
-export function multiply(a: number, b: number): number {
-  return a * b;
-}
+export { default as SplitView } from './components/SplitView';
+export * from './constants/setMasterNavigator';
+export * from './hooks/useSplitView';
