@@ -1,5 +1,5 @@
 {
-  "name": "react-native-splitview",
+  "name": "@lcaprini/react-native-splitview",
   "version": "0.1.0",
   "description": "React Native module that allow to manage multiple Navigator at the same time to create Master-Detail layout for tablet",
   "source": "./src/index.tsx",
