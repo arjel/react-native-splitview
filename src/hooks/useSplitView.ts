@@ -18,19 +18,6 @@ export const useSplitView = () => {
   );
 
   /**
-   * Reset the details navigator with a new stack starting from this new route
-   *
-   * @param routeName The name of the route to navigate
-   * @param params The params to pass to the route
-   */
-  const resetDetail = useCallback(
-    (routeName: string, params: Record<string, any> = {}) => {
-      detailNavigator.setRoot(routeName, params);
-    },
-    [detailNavigator]
-  );
-
-  /**
    * If the detail navigator is available, navigate a new route on it,
    * otherwise navigate to a new route on the master navigator
    *
@@ -66,20 +53,36 @@ export const useSplitView = () => {
     [detailNavigator, masterNavigator]
   );
 
+  /**
+   * If the split view if active set the root of detail nav
+   * otherwise make a simple push on the master nav
+   * @param routeName The name of the route to push
+   * @param params The params to pass to the route
+   */
+  const setRootOnDetail = useCallback(
+    (routeName: string, params: Record<string, any> = {}) => {
+      if (detailNavigator.isMounted()) {
+        detailNavigator.setRoot(routeName, params);
+      }
+      else {
+        masterNavigator.push(routeName, params);
+      }
+    }, [detailNavigator, masterNavigator])
+
   return useMemo(
     () => ({
       setDetailNavigator: detailNavigator.setNavigator,
       pushOnMaster,
-      resetDetail,
       navigateOnDetail,
       pushOnDetail,
+      setRootOnDetail
     }),
     [
       detailNavigator.setNavigator,
       navigateOnDetail,
       pushOnDetail,
       pushOnMaster,
-      resetDetail,
+      setRootOnDetail
     ]
   );
 };
